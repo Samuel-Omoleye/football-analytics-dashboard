@@ -3,21 +3,21 @@
 # # Makes sure the files we need exist on the laptop before the app runs
 # # ==============================================================================
 
-import os
-import sys
 
 
-def initialize_project_environment():
-    required_data_assets = ['bookmarks.json', 'notes.json']
-    print('[INIT] Checking if local system files exist...')
 
-    for asset in required_data_assets:
-        if not os.path.exists(asset):
-            print(
-                f'[WARN] {asset} missing! Creating default blank storage file now...')
-            with open(asset, 'w', encoding='utf-8') as file_handle:
-                file_handle.write('[]' if 'bookmarks' in asset else '{}')
-        else:
-            print(f'[OK] Validated tracking file asset signature: {asset}')
 
+
+
+class TeamNotFoundError(Exception): pass
+class MissingFixtureError(Exception): pass
+
+def safe_database_lookup(mock_database, user_query):
+    try:
+        normalized_query = user_query.strip().lower()
+        if normalized_query not in mock_database:
+            raise TeamNotFoundError(f'Target key {user_query} absent.')
+        return mock_database[normalized_query]
+    except TeamNotFoundError as e:
+        return f'Intercepted Error: {e}'
 
