@@ -1,5 +1,4 @@
 
-
 # ------------------------------------------------------------------------------
 # BACKEND COUPLING & IMPORTS (Samuel Omoleye)
 # Importing all the code engines my teammates built in app_core.py
@@ -15,3 +14,10 @@ from app_core import (
     StorageOperationsManager
 )
 
+# Run the file check right away
+initialize_project_environment()
+
+# Turn on the engines so Lois can connect them to the buttons
+data_engine = MatchDataEngine()
+prediction_engine = PredictiveModelEngine()
+storage_manager = StorageOperationsManager()
