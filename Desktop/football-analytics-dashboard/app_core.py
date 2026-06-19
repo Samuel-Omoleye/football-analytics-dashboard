@@ -87,3 +87,48 @@ class RegexDataSanitizer:
         return (0, 0)
 
 
+# ------------------------------------------------------------------------------
+# STEP 5: SAVING DATA TO FILES (JSON STORAGE) (Ibrahim Aminu)
+# This handles saving and loading data so things like bookmarks don’t disappear
+# when the app closes.
+# ------------------------------------------------------------------------------
+
+import json
+class DiskStorageManager:
+    def __init__(self, bookmarks_path='bookmarks.json'):
+        self.bookmarks_path = bookmarks_path
+          
+    def load_bookmarks(self) -> list:
+        try:
+            with open(self.bookmarks_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception:
+            return []
+
+    def save_bookmark(self, team_name: str) -> bool:
+        current = self.load_bookmarks()
+        if team_name not in current:
+            current.append(team_name)
+            with open(self.bookmarks_path, 'w', encoding='utf-8') as f:
+                json.dump(current, f, indent=4)
+            return True # means we actually saved a new bookmark
+        return False # means it was already saved before
+
+
+# ------------------------------------------------------------------------------
+# STEP 6: FAKE SPORTS API (JUST SAMPLE DATA) (Joy Ashoko)
+# Since there’s no real API here, we just simulate one using hardcoded team data.
+# ------------------------------------------------------------------------------
+class SportsAPIClient:
+    def __init__(self):
+        # This is just sample team data we’re using for testing
+        self._database_registry = {
+            'arsenal': Team('Arsenal', ['Founded in 1886.'], 'W-W-D-W-L'),
+            'chelsea': Team('Chelsea', ['Established in 1905.'], 'L-D-W-W-D')
+        }
+
+    def get_team_data(self, requested_team: str) -> Team:
+        lookup_key = requested_team.strip().lower()
+        if lookup_key not in self._database_registry:
+            raise TeamNotFoundError(f'Club {requested_team} unlisted.')
+        return self._database_registry[lookup_key]
