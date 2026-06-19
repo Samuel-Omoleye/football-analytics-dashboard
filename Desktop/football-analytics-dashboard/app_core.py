@@ -132,3 +132,42 @@ class SportsAPIClient:
         if lookup_key not in self._database_registry:
             raise TeamNotFoundError(f'Club {requested_team} unlisted.')
         return self._database_registry[lookup_key]
+
+
+# ------------------------------------------------------------------------------
+# STEP 7: MATCH PREDICTION LOGIC (SIMPLE FUN ANALYSIS) (David Umoh)
+# This checks recent form and assigns points just to guess which team looks stronger.
+# It’s not serious stats, just a fun prediction system.
+# ------------------------------------------------------------------------------
+class MatchAnalyzer:
+    def calculate_fun_forecast(self, home_team: Team, away_team: Team) -> str:
+        form_weights = {'W': 3, 'D': 1, 'L': 0}
+          
+        # Breaks the form string and adds up points for each result
+        home_points = sum(form_weights.get(res, 0) for res in home_team.recent_form.split('-'))
+        away_points = sum(form_weights.get(res, 0) for res in away_team.recent_form.split('-'))
+        disclaimer = '(Playful estimate only o!)'
+          
+        if home_points > away_points:
+            return f'Forecast: Advantage {home_team.name}! {disclaimer}'
+        return f'Forecast: Close match bound for draw! {disclaimer}'
+
+
+# ------------------------------------------------------------------------------
+# STEP 8: INPUT CONTROLLER (CONNECTS EVERYTHING) (Lois Binkat)
+# This is basically the middle layer that takes user input, cleans it,
+# then sends it to storage or other parts of the system.
+# ------------------------------------------------------------------------------
+class InputGatewayController:
+    def __init__(self):
+        self.storage = DiskStorageManager()
+        self.sanitizer = RegexDataSanitizer()
+
+    def process_bookmark_request(self, raw_team_name: str) -> str:
+        clean_name = self.sanitizer.clean_team_name(raw_team_name)
+        if not clean_name:
+            return 'Error: Team field cannot be blank.'
+          
+        # Sends cleaned name to storage and checks if it already exists
+        is_new = self.storage.save_bookmark(clean_name)
+        return 'Success: Added!' if is_new else 'Notice: Already pinned.'
