@@ -57,3 +57,29 @@ if user_search:
         st.error(f"Search Failure: Could not locate profile data. Details: {e}")
 
 st.markdown("---")
+
+
+# 5. MATCH PREDICTION SECTION (JUST FOR FUN)
+st.header("🧠 Playful Match Prediction Engine")
+st.write("Compare team form and generate a simple fun forecast of the match outcome.")
+
+col1, col2 = st.columns(2)
+with col1:
+    home_select = st.selectbox("Select Home Club:", ["Arsenal", "Chelsea"])
+with col2:
+    away_select = st.selectbox("Select Away Club:", ["Chelsea", "Arsenal"])
+
+if st.button("📊 Run Match Analysis"):
+    if home_select == away_select:
+        st.warning("Please pick two different teams to compare.")
+    else:
+        # Get full team objects from backend
+        home_obj = api_client.get_team_data(home_select)
+        away_obj = api_client.get_team_data(away_select)
+        
+        # Run simple prediction logic
+        forecast_result = analyzer.calculate_fun_forecast(home_obj, away_obj)
+        st.success(forecast_result)
+
+st.markdown("---")
+
