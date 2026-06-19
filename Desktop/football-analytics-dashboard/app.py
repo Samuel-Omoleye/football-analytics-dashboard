@@ -28,7 +28,7 @@ storage_manager = app_core.DiskStorageManager()
 # 3. Basic page setup and welcome text
 st.set_page_config(page_title="Football Analytics Dashboard", layout="centered")
 st.title("⚽ Football Analytics & Match Prediction Dashboard")
-st.subheader("Senior Software Engineering Capstone Companion Workspace")
+st.subheader("Python Advance Project: Group 7")
 st.write("Welcome to your offline football companion app! Search clubs, manage bookmarks, and view form predictions.")
 
 st.markdown("---")
