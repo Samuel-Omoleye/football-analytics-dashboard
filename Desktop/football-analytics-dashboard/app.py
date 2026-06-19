@@ -83,3 +83,14 @@ if st.button("📊 Run Match Analysis"):
 
 st.markdown("---")
 
+
+# 6. SAVED BOOKMARKS DISPLAY (SIDEBAR)
+st.sidebar.header("📁 Saved Bookmarks Dashboard")
+st.sidebar.write("These are the teams you’ve saved locally:")
+
+saved_list = storage_manager.load_bookmarks()
+if saved_list:
+    for bookmarked_team in saved_list:
+        st.sidebar.markdown(f"• **{bookmarked_team.upper()}**")
+else:
+    st.sidebar.info("No bookmarks saved locally yet.")
