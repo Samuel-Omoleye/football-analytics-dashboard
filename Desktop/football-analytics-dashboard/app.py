@@ -2,7 +2,7 @@
 #  MODULE - STREAMLIT USER INTERFACE (DASHBOARD APP) (app.py)
 # ==============================================================================
 
-# # STEP 9: BACKEND COUPLING & IMPORTS (Samuel Omoleye)
+# # STEP 9: BACKEND COUPLING & IMPORTS
 # # Importing all the code engines my teammates built in app_core.py
 # ==============================================================================
 
@@ -19,7 +19,7 @@ gateway = app_core.InputGatewayController()
 storage_manager = app_core.DiskStorageManager()
 
 # ==============================================================================
-# STEP 10: BUILDING THE STREAMLIT FRONT-END DASHBOARD (Lois Binkat)
+# STEP 10: BUILDING THE STREAMLIT FRONT-END DASHBOARD 
 # This is the part that creates everything the user actually sees — buttons,
 # text boxes, layouts, and displays. It connects the backend logic to a simple
 # interactive UI so users can play around with the system.
