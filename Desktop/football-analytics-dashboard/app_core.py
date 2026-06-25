@@ -124,7 +124,9 @@ class SportsAPIClient:
         # This is just sample team data we’re using for testing
         self._database_registry = {
             'arsenal': Team('Arsenal', ['Founded in 1886.'], 'W-W-D-W-L'),
-            'chelsea': Team('Chelsea', ['Established in 1905.'], 'L-D-W-W-D')
+            'chelsea': Team('Chelsea', ['Established in 1905.'], 'L-D-W-W-D'),
+            'liverpool': Team('Liverpool', ['Established in 1892.'], 'W-D-W-W-D'),
+            'wolves': Team('Wolves', ['Established in 1877.'], 'D-L-W-D-D')
         }
 
     def get_team_data(self, requested_team: str) -> Team:
@@ -140,17 +142,28 @@ class SportsAPIClient:
 # It’s not serious stats, just a fun prediction system.
 # ------------------------------------------------------------------------------
 class MatchAnalyzer:
-    def calculate_fun_forecast(self, home_team: Team, away_team: Team) -> str:
+    def calculate_fun_forecast(self, home_team: Team,away_team: Team) -> str:
         form_weights = {'W': 3, 'D': 1, 'L': 0}
           
         # Breaks the form string and adds up points for each result
         home_points = sum(form_weights.get(res, 0) for res in home_team.recent_form.split('-'))
         away_points = sum(form_weights.get(res, 0) for res in away_team.recent_form.split('-'))
         disclaimer = '(Playful estimate only o!)'
+        summary_lose = f'Solid Performance from {home_team.name} but an unfortunate outcome' 
+        summary_win = f'{home_team.name} gets the job done and brings it home'
           
         if home_points > away_points:
-            return f'Forecast: Advantage {home_team.name}! {disclaimer}'
-        return f'Forecast: Close match bound for draw! {disclaimer}'
+            return f'{home_team.name} 2-0 {away_team.name}\n\n{summary_win} {disclaimer}'
+        elif home_points < away_points:
+            return f'{home_team.name} 1-2 {away_team.name}\n\n{summary_lose}{disclaimer}'
+        else:
+            return f'Forecast: Close match bound for draw! {disclaimer}'
+
+
+
+        # if home_points > away_points:
+        #     return f'Forecast: Advantage {home_team.name}! {disclaimer}'
+        # return f'Forecast: Close match bound for draw! {disclaimer}'
 
 
 # ------------------------------------------------------------------------------

@@ -1,8 +1,6 @@
 # ==============================================================================
-#  MODULE - STREAMLIT USER INTERFACE (DASHBOARD APP) (app.py)
-# ==============================================================================
-
-# # STEP 9: BACKEND COUPLING & IMPORTS (Samuel Omoleye)
+# MODULE: STREAMLIT USER INTERFACE (DASHBOARD APP) (app.py)
+# # BACKEND COUPLING & IMPORTS 
 # # Importing all the code engines my teammates built in app_core.py
 # ==============================================================================
 
@@ -19,7 +17,7 @@ gateway = app_core.InputGatewayController()
 storage_manager = app_core.DiskStorageManager()
 
 # ==============================================================================
-# STEP 10: BUILDING THE STREAMLIT FRONT-END DASHBOARD (Lois Binkat)
+# STEP 9: BUILDING THE STREAMLIT FRONT-END DASHBOARD 
 # This is the part that creates everything the user actually sees — buttons,
 # text boxes, layouts, and displays. It connects the backend logic to a simple
 # interactive UI so users can play around with the system.
@@ -28,8 +26,8 @@ storage_manager = app_core.DiskStorageManager()
 # 3. Basic page setup and welcome text
 st.set_page_config(page_title="Football Analytics Dashboard", layout="centered")
 st.title("⚽ Football Analytics & Match Prediction Dashboard")
-st.subheader("Senior Software Engineering Capstone Companion Workspace")
-st.write("Welcome to your offline football companion app! Search clubs, manage bookmarks, and view form predictions.")
+st.subheader("Python Advance Project: Group 7")
+st.write("Welcome to your offline football companion app! Search clubs, manage bookmarks, and view fun predictions.")
 
 st.markdown("---")
 
@@ -58,16 +56,15 @@ if user_search:
 
 st.markdown("---")
 
-
 # 5. MATCH PREDICTION SECTION (JUST FOR FUN)
 st.header("🧠 Playful Match Prediction Engine")
 st.write("Compare team form and generate a simple fun forecast of the match outcome.")
 
 col1, col2 = st.columns(2)
 with col1:
-    home_select = st.selectbox("Select Home Club:", ["Arsenal", "Chelsea"])
+    home_select = st.selectbox("Select Home Club:", ["Arsenal", "Chelsea", "Liverpool", "Wolves"])
 with col2:
-    away_select = st.selectbox("Select Away Club:", ["Chelsea", "Arsenal"])
+    away_select = st.selectbox("Select Away Club:", ["Chelsea", "Arsenal", "Liverpool", "Wolves"])
 
 if st.button("📊 Run Match Analysis"):
     if home_select == away_select:
@@ -82,7 +79,6 @@ if st.button("📊 Run Match Analysis"):
         st.success(forecast_result)
 
 st.markdown("---")
-
 
 # 6. SAVED BOOKMARKS DISPLAY (SIDEBAR)
 st.sidebar.header("📁 Saved Bookmarks Dashboard")
